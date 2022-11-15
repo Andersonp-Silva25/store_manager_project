@@ -4,9 +4,7 @@ const statusCode = require('../utils/statusCode');
 const { HTTP_STATUS_OK } = statusCode;
 
 const getAllProducts = async (_req, res) => {
-  const { type, message } = await productsService.getAllProducts(); 
-
-  if (type) return res.status(type).json(message);
+  const { message } = await productsService.getAllProducts(); 
 
   return res.status(HTTP_STATUS_OK).json(message);
 };
