@@ -1,7 +1,12 @@
+const Joi = require('joi');
 const productsModel = require('../models/products.model');
 const statusCode = require('../utils/statusCode');
 
-const { HTTP_STATUS_NOT_FOUND } = statusCode;
+const {
+  HTTP_STATUS_NOT_FOUND,
+  HTTP_STATUS_BAD_REQUEST,
+  HTTP_STATUS_UNPROCESSABLE_ENTITY,
+} = statusCode;
 
 const getAllProducts = async () => {
   const allProducts = await productsModel.getAll();
@@ -19,6 +24,14 @@ const getProductByID = async (id) => {
 };
 
 const createProduct = async (name) => {
+  if (!name) return { type: HTTP_STATUS_BAD_REQUEST, message: '"name" is required' };
+
+  const messageLength = '"name" length must be at least 5 characters long';
+  const schema = Joi.string().min(5).required();
+  const validateLength = schema.validate(name).error;
+  
+  if (validateLength) return { type: HTTP_STATUS_UNPROCESSABLE_ENTITY, message: messageLength };
+  
   const newProductID = await productsModel.createProduct({ name });
   const [newProduct] = await productsModel.getProductByID(newProductID);
 
