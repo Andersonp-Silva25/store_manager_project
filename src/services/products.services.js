@@ -25,7 +25,7 @@ const getProductByID = async (id) => {
 
 const createProduct = async (name) => {
   if (!name) return { type: HTTP_STATUS_BAD_REQUEST, message: '"name" is required' };
-
+  
   const messageLength = '"name" length must be at least 5 characters long';
   const schema = Joi.string().min(5).required();
   const validateLength = schema.validate(name).error;
