@@ -12,6 +12,7 @@ const salesMessages = {
     message: '"quantity" must be greater than or equal to 1',
   },
   productNotFound: { type: HTTP_STATUS_NOT_FOUND, message: 'Product not found' },
+  saleNotFound: { type: HTTP_STATUS_NOT_FOUND, message: 'Sale not found' },
 };
 
 module.exports = salesMessages;
