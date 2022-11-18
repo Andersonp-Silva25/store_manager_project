@@ -7,5 +7,6 @@ const salesRouter = express.Router();
 salesRouter.post('/', validateSales, salesController.createSalesProducts);
 salesRouter.get('/', salesController.getAllSalesProducts);
 salesRouter.get('/:id', salesController.getSaleProductById);
+salesRouter.delete('/:id', salesController.deleteSale);
 
 module.exports = salesRouter;
