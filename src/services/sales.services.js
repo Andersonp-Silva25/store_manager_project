@@ -45,9 +45,30 @@ const deleteSale = async (id) => {
   return { type: null, message: 'Success' };
 };
 
+const updateSales = async (saleId, products) => {
+  const hasSale = await productsModel.getProductByID(saleId);
+
+  if (!hasSale.length) return { type: HTTP_STATUS_NOT_FOUND, message: 'Sale not found' };
+
+  const productIdSales = products.map(({ productId }) => productId);
+  const getAllProducts = await productsModel.getAll();
+  const productIdBD = getAllProducts.map(({ id }) => id);
+  const checkId = productIdSales.every((productId) => productIdBD.includes(productId));
+
+  if (!checkId) return { type: HTTP_STATUS_NOT_FOUND, message: productNotFound };
+  
+  const itemsUpdated = [];
+  await Promise.all(products.map(async (product) => (
+    itemsUpdated.push(await salesModel.updateSales(saleId, product))
+  )));
+
+  return { type: null, message: { saleId, itemsUpdated } };
+};
+
 module.exports = {
   createSalesProducts,
   getAllSalesProducts,
   getSaleProductById,
   deleteSale,
+  updateSales,
 };
