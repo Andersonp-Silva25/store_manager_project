@@ -31,4 +31,15 @@ describe('Testes unitarios do service de produtos', function () {
     expect(result.message).to.be.deep.equal(products[0]);
   });
 
+  it('Cadastrando um novo produto', async () => {
+    sinon.stub(productModel, 'createProduct').resolves([{ insertId: 1 }]);
+    sinon.stub(productModel, 'getProductByID').resolves(products);
+
+    const result = await productService.createProduct('Traje do Homem de Ferro');
+
+    expect(result.type).to.equal(null);
+    expect(result.message).to.be.deep.equal(products[0]);
+
+  });
+
 });
