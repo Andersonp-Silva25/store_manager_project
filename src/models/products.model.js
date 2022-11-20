@@ -13,7 +13,7 @@ const getProductByID = async (id) => {
     'SELECT * FROM StoreManager.products WHERE id = (?)',
     [id],
   );
-
+    
   return result;
 };
 
@@ -40,10 +40,18 @@ const deleteProduct = async (id) => {
   );
 };
 
+const getProductByName = async (name) => {
+  const searchName = `SELECT * FROM StoreManager.products WHERE name LIKE "%${name}%"`;
+  const [result] = await connection.execute(searchName);
+    
+  return result;
+};
+
 module.exports = {
   getAll,
   getProductByID,
   createProduct,
   updateProduct,
   deleteProduct,
+  getProductByName,
 };
