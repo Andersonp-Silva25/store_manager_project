@@ -13,4 +13,18 @@ describe('Testes unitarios da camada Service de sales', () => {
     const response = await saleService.createSalesProducts([salesMock.sale]);
     expect(response.type).to.equal(null);
   });
+
+  it('Buscando todas as vendas', async () => {
+    sinon.stub(saleModel, 'getAllSalesProducts').resolves(salesMock.allSales);
+    const result = await saleService.getAllSalesProducts();
+    expect(result.message).to.be.deep.equal(salesMock.allSales);
+  });
+
+  it('Buscando uma venda por ID', async () => {
+    sinon.stub(saleModel, 'getSaleProductById').resolves(salesMock.allSales);
+    const result = await saleService.getSaleProductById(1);
+
+    expect(result.type).to.equal(null);
+    expect(result.message).to.be.deep.equal(salesMock.allSales);
+  })
 })

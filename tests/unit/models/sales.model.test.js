@@ -19,4 +19,16 @@ describe('Testes unitarios da camada Model de sales', () => {
     const response = await salesModel.createSalesProducts(salesMock.sale);
     expect(response).to.be.deep.equal(1);
   });
+
+  it('Buscando todas as vendas', async () => {
+    sinon.stub(connection, 'execute').resolves([salesMock.allSales]);
+    const result = await salesModel.getAllSalesProducts();
+    expect(result).to.be.deep.equal(salesMock.allSales);
+  });
+
+  it('Buscando uma venda pelo seu ID', async function () {
+    sinon.stub(connection, 'execute').resolves([salesMock.allSales[0]]);
+    const result = await salesModel.getSaleProductById(1)
+    expect(result).to.be.deep.equal(salesMock.allSales[0]);
+  });
 });
