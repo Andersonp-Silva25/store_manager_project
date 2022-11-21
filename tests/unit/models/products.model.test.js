@@ -34,7 +34,7 @@ describe('Testes unitarios do model de produtos', function () {
     expect(response).to.be.equal(undefined);
   });
 
-  it('Deletar um produto', async function () {
+  it('Deletar um produto pelo id', async function () {
     sinon.stub(connection, 'execute').resolves(undefined);
     const response = await productsModel.deleteProduct(products[0].id);
     expect(response).to.be.equal(undefined);
