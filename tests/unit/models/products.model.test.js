@@ -33,4 +33,10 @@ describe('Testes unitarios do model de produtos', function () {
     const response = await productsModel.updateProduct(id, newProduct);
     expect(response).to.be.equal(undefined);
   });
+
+  it('Deletar um produto', async function () {
+    sinon.stub(connection, 'execute').resolves(undefined);
+    const response = await productsModel.deleteProduct(products[0].id);
+    expect(response).to.be.equal(undefined);
+  });
 });

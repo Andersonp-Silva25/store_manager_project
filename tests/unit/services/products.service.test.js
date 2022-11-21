@@ -31,7 +31,7 @@ describe('Testes unitarios do service de produtos', function () {
     expect(result.message).to.be.deep.equal(products[0]);
   });
 
-  it('Cadastrando um novo produto', async () => {
+  it('Cadastrando um novo produto', async function () {
     sinon.stub(productModel, 'createProduct').resolves([{ insertId: 1 }]);
     sinon.stub(productModel, 'getProductByID').resolves(products);
 
@@ -51,6 +51,17 @@ describe('Testes unitarios do service de produtos', function () {
     const responde = await productService.updateProduct(id, newProduct);
 
     expect(responde).to.be.deep.equal(result);
+  });
+
+  it('Deletando um produto', async function () {
+    const result = { type: null, message: 'Success' };
+
+    sinon.stub(productModel, 'getProductByID').resolves([products[0].id]);
+    sinon.stub(productModel, 'deleteProduct').resolves(undefined);
+
+    const response = await productService.deleteProduct(1);
+
+    expect(response).to.be.deep.equal(result);
   });
 
 });
