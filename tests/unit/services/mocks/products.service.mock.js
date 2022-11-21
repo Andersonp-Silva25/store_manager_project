@@ -11,6 +11,16 @@ const products = [
     "id": 3,
     "name": "Escudo do Capitão América"
   }
-]
+];
 
-module.exports = products;
+const newProduct = {
+  "name": "Traje do Homem de Ferro"
+}
+
+const id = 1;
+
+module.exports = {
+  products,
+  newProduct,
+  id,
+};

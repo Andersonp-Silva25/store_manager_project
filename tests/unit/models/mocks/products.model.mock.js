@@ -17,7 +17,10 @@ const newProduct = {
   "name": "Traje do Homem de Ferro"
 }
 
+const id = 1;
+
 module.exports = {
   products,
   newProduct,
+  id,
 };

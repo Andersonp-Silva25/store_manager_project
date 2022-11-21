@@ -3,7 +3,7 @@ const sinon = require('sinon');
 const productService = require('../../../src/services/products.services');
 const productModel = require('../../../src/models/products.model');
 
-const products = require('./mocks/products.service.mock');
+const { products, newProduct, id } = require('./mocks/products.service.mock');
 
 describe('Testes unitarios do service de produtos', function () {
   afterEach(sinon.restore);
@@ -40,6 +40,17 @@ describe('Testes unitarios do service de produtos', function () {
     expect(result.type).to.equal(null);
     expect(result.message).to.be.deep.equal(products[0]);
 
+  });
+
+  it('Atualiza um produto', async function () {
+    const result = { type: null, message: newProduct };
+
+    sinon.stub(productModel, 'getProductByID').resolves([newProduct]);
+    sinon.stub(productModel, 'updateProduct').resolves(undefined);
+
+    const responde = await productService.updateProduct(id, newProduct);
+
+    expect(responde).to.be.deep.equal(result);
   });
 
 });

@@ -84,4 +84,21 @@ describe('Testes unitarios do controller de produtos', function () {
     expect(res.json).to.have.been.calledWith({ id: 4, ...newProduct });
   });
 
+  it('Atualiza um produto', async function () {
+    const req = {
+      params: { id: 1 },
+      body: newProduct,
+    };
+    const res = {};
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    sinon.stub(productService, 'updateProduct').resolves({ type: null, message: newProduct });
+
+    await productsController.updateProduct(req, res);
+
+    expect(res.status).to.have.been.calledWith(200);
+    expect(res.json).to.have.been.calledWith(newProduct);
+  });
 });
